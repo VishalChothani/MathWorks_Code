@@ -1,0 +1,63 @@
+.container{
+	margin-top: 20px;
+}
+
+.keypad {	
+	font-family:monospace;
+	font-size:40px;  	
+	color:#000;  	
+	text-shadow:1px 1px 0px #7D7D7D;  	
+	padding: 3px 9px;
+	cursor:pointer;
+	position:relative;
+	border: 0px;
+	background: linear-gradient(#FDFDFD, #E5E5E5); 
+	border-radius: 8px;
+	box-shadow: inset 0px 0px 0px, 0px 5px 0px 0px #7D7D7D, 0px 7px 8px 6px #959595;
+	display: inline;	
+}
+
+.keypad:active, .keypad.current {
+  top:3px;
+  box-shadow: inset 0px 0px 0px, 0px 2px 0px 0px #7D7D7D;
+  background: linear-gradient(#f8ffe8, #b7df2d); 
+}
+
+.fa.fa-arrows-h{
+	font-size: 34px;
+}
+
+.margin-top-20{
+  margin-top: 20px;
+}
+
+#wrapper {
+  padding-left: 225px;
+}
+
+.manual-height{
+  margin-top: 50px;
+}
+
+#imageView{
+  border: 20px solid;
+  border-bottom: 0px;
+}
+
+
+#page-wrapper{
+  position: relative; 
+}
+
+#imageTemp 
+{ 
+  position: absolute; 
+  top: 1px; 
+  left: 0px; 
+  border: 20px solid;
+  border-bottom: 0px;
+}
+
+a.navbar-brand{
+	color: aquamarine;
+}
