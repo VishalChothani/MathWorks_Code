@@ -23,7 +23,7 @@
   background: linear-gradient(#f8ffe8, #b7df2d); 
 }
 
-.fa.fa-arrows-h{
+.fa.fa-arrows-h, .fa.fa-arrows{
 	font-size: 34px;
 }
 
@@ -58,6 +58,6 @@
   border-bottom: 0px;
 }
 
-a.navbar-brand{
+.navbar-inverse a.navbar-brand{
 	color: aquamarine;
 }

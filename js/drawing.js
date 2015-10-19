@@ -11,6 +11,7 @@ if (window.addEventListener) {
     var cStep = -1;
 
     function init() {
+      
       // Find the canvas element.
       canvaso = document.getElementById('imageView');
       if (!canvaso) {
@@ -86,6 +87,26 @@ if (window.addEventListener) {
       tool_select_circle.addEventListener('click',
           ev_tool_change, false);
 
+      // Get the tool select input (delete).
+      var tool_select_delete = document
+          .getElementById('delete');
+      if (!tool_select_delete) {
+        alert('Error: failed to get the dtool element!');
+        return;
+      }
+      tool_select_delete.addEventListener('click',
+          ev_tool_change, false);
+
+      // Get the tool select input (move).
+      var tool_select_move = document
+          .getElementById('move');
+      if (!tool_select_move) {
+        alert('Error: failed to get the dtool element!');
+        return;
+      }
+      tool_select_move.addEventListener('click',
+          ev_tool_change, false);
+
       // Activate the default tool.
       if (tools[tool_default]) {
         tool = new tools[tool_default]();
@@ -123,8 +144,7 @@ if (window.addEventListener) {
           false);
       canvas.addEventListener('mousemove', ev_canvas,
           false);
-      canvas
-          .addEventListener('mouseup', ev_canvas,
+      canvas.addEventListener('mouseup', ev_canvas,
               false);
     }
 
@@ -153,8 +173,7 @@ if (window.addEventListener) {
       if (tools[this.id]) {
         tool = new tools[this.id]();
 
-        var current_id = document
-            .getElementById(this.id);
+        var current_id = document.getElementById(this.id);
 
         var rect_class = document.getElementById("rect");
         rect_class.className = "keypad";
@@ -169,6 +188,13 @@ if (window.addEventListener) {
         var circle_class = document
             .getElementById("circle");
         circle_class.className = "keypad";
+
+        var delete_class = document.getElementById("delete");
+        delete_class.className = "keypad";
+
+
+        var move_class = document.getElementById("move");
+        move_class.className = "keypad";
 
         current_id.className = current_id.className
             + " current";
@@ -319,6 +345,114 @@ if (window.addEventListener) {
           context.clearRect(0, 0, canvas.width,
               canvas.height);
           tool.mousemove(ev);
+          tool.started = false;
+          img_update();
+        }
+      };
+    };
+
+    // The Delete tool.
+    tools.delete = function() {
+      var tool = this;
+
+      var x,y,w,h;
+      this.started = false;
+
+      this.mousedown = function(ev) {
+        tool.started = true;
+        tool.x0 = ev._x;
+        tool.y0 = ev._y;
+      };
+
+      this.mousemove = function(ev) {
+        if (!tool.started) {
+          return;
+        }
+
+        x = Math.min(ev._x, tool.x0), y = Math.min(
+            ev._y, tool.y0), w = Math.abs(ev._x
+            - tool.x0), h = Math.abs(ev._y
+            - tool.y0);
+
+        context.clearRect(0, 0, canvas.width,
+            canvas.height);
+
+        if (!w || !h) {
+          return;
+        }
+
+        // contexto.fillStyle="red";
+        // contexto.fillRect(0,0,300,150);
+        context.strokeRect(x, y, w, h);        
+        
+      };
+
+      this.mouseup = function(ev) {
+        if (tool.started) {
+          context.clearRect(0, 0, canvas.width,
+              canvas.height); 
+
+          tool.mousemove(ev);
+          context.clearRect(x-5, y-5, w+20, h+20);
+          contexto.clearRect(x, y, w, h);
+          tool.started = false;
+          img_update();
+        }
+      };
+    };
+
+    // The move tool.
+    tools.move = function() {
+      var tool = this;
+
+      var x,y,w,h;
+      this.started = false;
+
+      this.mousedown = function(ev) {
+        tool.started = true;
+        tool.x0 = ev._x;
+        tool.y0 = ev._y;
+      };
+
+      this.mousemove = function(ev) {
+        if (!tool.started) {
+          return;
+        }
+
+        x = Math.min(ev._x, tool.x0), y = Math.min(
+            ev._y, tool.y0), w = Math.abs(ev._x
+            - tool.x0), h = Math.abs(ev._y
+            - tool.y0);
+
+        context.clearRect(0, 0, canvas.width,
+            canvas.height);
+
+        if (!w || !h) {
+          return;
+        }
+
+        // contexto.fillStyle="red";
+        // contexto.fillRect(0,0,300,150);
+        context.strokeRect(x, y, w, h);        
+        
+      };
+
+      this.mouseup = function(ev) {
+        if (tool.started) {
+          context.clearRect(0, 0, canvas.width,
+              canvas.height); 
+
+          tool.mousemove(ev);
+          context.clearRect(x-5, y-5, w+20, h+20);
+          contexto.clearRect(x, y, w, h);
+
+          // var imgData = context.getImageData(x, y, w, h);
+          // console.log(imgData);
+          // contexto.putImageData(imgData, 0, 0);
+          
+
+          //Problem
+
           tool.started = false;
           img_update();
         }
