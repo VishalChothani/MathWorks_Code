@@ -444,12 +444,11 @@ if (window.addEventListener) {
 
           tool.mousemove(ev);
           context.clearRect(x-5, y-5, w+20, h+20);
-          contexto.clearRect(x, y, w, h);
-
-          // var imgData = context.getImageData(x, y, w, h);
-          // console.log(imgData);
-          // contexto.putImageData(imgData, 0, 0);
+                    
+          var imgData = contexto.getImageData(x, y, w, h);
+          contexto.putImageData(imgData, 10, 70);
           
+          contexto.clearRect(x, y, w, h);
 
           //Problem
 
